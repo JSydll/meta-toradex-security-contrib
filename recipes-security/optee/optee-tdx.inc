@@ -30,3 +30,9 @@ EXTRA_OEMAKE:append:pn-optee-os = "\
 "
 
 require ${@oe.utils.conditional('TDX_OPTEE_FS_RPMB', '1', 'optee-fs-rpmb.inc', '', d)}
+
+# Ensure the TEE binary is where the boot container builder expects it
+do_deploy:append() {
+    cp ${B}/core/tee-raw.bin ${DEPLOYDIR}/${MLPREFIX}optee/tee.${PLATFORM_FLAVOR}.bin
+    ln -sf ${MLPREFIX}optee/tee.${PLATFORM_FLAVOR}.bin ${DEPLOYDIR}/tee.bin
+}

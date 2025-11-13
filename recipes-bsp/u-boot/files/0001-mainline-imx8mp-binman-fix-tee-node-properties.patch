@@ -1,0 +1,36 @@
+From ba43802402cfa37100218c358a0df040fdca82bf Mon Sep 17 00:00:00 2001
+From: Joschka Seydell <joschka@seydell.org>
+Date: Tue, 30 Dec 2025 07:38:17 +0100
+Subject: [PATCH] imx8mp: binman: Ensure all properties of the TEE binary are
+ exposed like the firmware expects it.
+
+Upstream-Status: Pending
+
+Signed-off-by: Joschka Seydell <joschka@seydell.org>
+---
+ arch/arm/dts/imx8mp-u-boot.dtsi | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/dts/imx8mp-u-boot.dtsi b/arch/arm/dts/imx8mp-u-boot.dtsi
+index d9d220c70db..e7dbdfd701c 100644
+--- a/arch/arm/dts/imx8mp-u-boot.dtsi
++++ b/arch/arm/dts/imx8mp-u-boot.dtsi
+@@ -191,16 +191,14 @@
+ 
+ 					tee: tee {
+ 						description = "OP-TEE";
+-						type = "tee";
++						type = "firmware";
+ 						arch = "arm64";
+ 						compression = "none";
+-						os = "tee";
+ 						load = <CONFIG_IMX8M_OPTEE_LOAD_ADDR>;
+ 						entry = <CONFIG_IMX8M_OPTEE_LOAD_ADDR>;
+ 
+-						tee-os {
++						tee_blob: blob-ext {
+ 							filename = "tee.bin";
+-							optional;
+ 						};
+ 					};
+ 
